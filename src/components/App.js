@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react';
 import { initialState, reducer } from '../reducers';
-import { addOne, applyNumber } from '../actions';
-
+import { changeOperation, applyNumber, clearDisplay } from '../actions';
 import './App.css';
 
 import TotalDisplay from './TotalDisplay';
@@ -12,6 +11,14 @@ function App() {
 
   const onClickNumber = (number) => {
     dispatch(applyNumber(number));
+  }
+
+  const onClickOperation = (operation) => {
+    dispatch(changeOperation(operation));
+  }
+
+  const onClickCLear = () => {
+    dispatch(clearDisplay());
   }
 
   return (
@@ -57,13 +64,21 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"+"}/>
-              <CalcButton value={"*"}/>
-              <CalcButton value={"-"}/>
+              <CalcButton onClick={() => {
+                onClickOperation('+')
+              }} value={"+"}/>
+              <CalcButton onClick={() => {
+                onClickOperation('*')
+              }} value={"*"}/>
+              <CalcButton onClick={() => {
+                onClickOperation('-')
+              }} value={"-"}/>
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"}/>
+              <CalcButton onClick={() => {
+                onClickCLear();
+              }} value={"CE"}/>
             </div>
 
           </form>
